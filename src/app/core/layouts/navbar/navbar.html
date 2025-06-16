@@ -1,0 +1,18 @@
+<header class="navbar">
+  <div class="navbar__logo">Hudson.</div>
+  <nav class="navbar__menu" [class.open]="menuOpen">
+    <ul>
+      <li><a href="#">Inicio</a></li>
+      <li><a href="#">Sobre Mi</a></li>
+      <li><a href="#">Proyecto</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Testimonios</a></li>
+    </ul>
+  </nav>
+
+  <div class="navbar__toggle" (click)="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
