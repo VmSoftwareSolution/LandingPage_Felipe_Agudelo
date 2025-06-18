@@ -1,18 +1,53 @@
-<header class="navbar">
-  <div class="navbar__logo">Hudson.</div>
-  <nav class="navbar__menu" [class.open]="menuOpen">
-    <ul>
-      <li><a href="#">Inicio</a></li>
-      <li><a href="#">Sobre Mi</a></li>
-      <li><a href="#">Proyecto</a></li>
-      <li><a href="#">Blog</a></li>
-      <li><a href="#">Testimonios</a></li>
-    </ul>
-  </nav>
+<nav class="navbar navbar-expand-lg custom-navbar">
+  <div class="container-fluid">
+    <!-- Logo -->
+    <a class="navbar-brand" href="#">Hudson.</a>
 
-  <div class="navbar__toggle" (click)="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
+    <!-- Botón -->
+    <button
+      class="navbar-toggler"
+      [class.active]="menuOpen"
+      type="button"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen"
+      aria-label="Toggle navigation">
+      <span></span>
+    </button>
+
+    <!-- Menú -->
+    <div class="collapse navbar-collapse" [class.show]="menuOpen" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link"
+             [class.active]="activeSection === 'inicio'"
+             (click)="setActiveSection('inicio')"
+             href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"
+             [class.active]="activeSection === 'sobre'"
+             (click)="setActiveSection('sobre')"
+             href="#">Sobre Mi</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"
+             [class.active]="activeSection === 'proyecto'"
+             (click)="setActiveSection('proyecto')"
+             href="#">Proyecto</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"
+             [class.active]="activeSection === 'blog'"
+             (click)="setActiveSection('blog')"
+             href="#">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"
+             [class.active]="activeSection === 'testimonios'"
+             (click)="setActiveSection('testimonios')"
+             href="#">Testimonios</a>
+        </li>
+      </ul>
+    </div>
   </div>
-</header>
+</nav>
