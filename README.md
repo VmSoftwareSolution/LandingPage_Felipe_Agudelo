@@ -38,6 +38,12 @@ Sin embargo, si deseas actualizar el proyecto a la última versión de Angular, 
 
 En resumen: puedes tener una versión más actual en tu máquina que la del proyecto sin que eso afecte su ejecución, pero actualizar el proyecto sí requiere una evaluación previa para evitar errores inesperados.
 
+3.**Instalar carpeta de node_modules**: Angular requiere una serie de dependencias adicionales para poder ejecutar correctamente el proyecto. Estas dependencias están definidas en el archivo package.json, y se instalarán automáticamente con el siguiente comando:
+```
+npm install
+```
+Este comando analizará el archivo de configuración del proyecto y descargará todas las librerías necesarias dentro de la carpeta node_modules.
+
 ## Correr Proyecto
 Una vez tengas todos los programas necesarios para correr el proyecto, debes estar en la raiz del proyecto, abrir una nueva terminal y ejecutar el siguiente comando para correr el proyecto en tu maquina:
 ```
