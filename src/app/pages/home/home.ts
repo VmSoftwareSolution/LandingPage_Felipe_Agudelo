@@ -21,8 +21,6 @@ export default class Home implements OnInit, OnDestroy, AfterViewInit {
   private resizeListener!: () => void;
   private currentBreakpoint: string = 'desktop';
 
-  constructor() {}
-
   ngOnInit(): void {
     this.setupIntersectionObserver();
     this.setupResizeListener();
