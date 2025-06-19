@@ -1,19 +1,17 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, OnDestroy, OnInit, inject, PLATFORM_ID } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-
 
 @Component({
   selector: 'app-navbar',
-  imports: [FormsModule,ReactiveFormsModule,CommonModule],
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.css'
+  styleUrls: ['./navbar.css']
 })
 export class Navbar implements OnInit, OnDestroy {
+  private platformId = inject(PLATFORM_ID);
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
   menuOpen = false;
   activeSection = 'inicio';
 
@@ -26,19 +24,19 @@ export class Navbar implements OnInit, OnDestroy {
   ];
 
   ngOnInit() {
-  if (isPlatformBrowser(this.platformId)) {
-    document.addEventListener('click', this.handleClickOutside);
-    document.addEventListener('keydown', this.handleEscape);
+    if (isPlatformBrowser(this.platformId)) {
+      document.addEventListener('click', this.handleClickOutside);
+      document.addEventListener('keydown', this.handleEscape);
+    }
   }
-}
 
-ngOnDestroy() {
-  if (isPlatformBrowser(this.platformId)) {
-    document.removeEventListener('click', this.handleClickOutside);
-    document.removeEventListener('keydown', this.handleEscape);
-    document.body.style.overflow = 'auto';
+  ngOnDestroy() {
+    if (isPlatformBrowser(this.platformId)) {
+      document.removeEventListener('click', this.handleClickOutside);
+      document.removeEventListener('keydown', this.handleEscape);
+      document.body.style.overflow = 'auto';
+    }
   }
-}
 
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;

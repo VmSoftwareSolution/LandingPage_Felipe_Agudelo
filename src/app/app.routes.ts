@@ -1,6 +1,3 @@
 import { Routes } from '@angular/router';
-import { Navbar } from './core/layouts/navbar/navbar';
 
-export const routes: Routes = [
-
-];
+export const routes: Routes = [];
