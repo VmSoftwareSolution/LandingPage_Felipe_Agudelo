@@ -12,10 +12,32 @@
         </div>
       </h1>
       <div class="buttons-container">
-        <a (click)="scrollToSection('about')" class="btn-custom btn-primary-custom">Más Sobre Mí</a>
-        <a (click)="scrollToSection('contact')" class="btn-custom">Contáctame</a>
+        <a
+          role="button"
+          tabindex="0"
+          (click)="scrollToSection('about')"
+          (keydown.enter)="scrollToSection('about')"
+          class="btn-custom btn-primary-custom"
+        >
+          Más Sobre Mí
+        </a>
+        <a
+          role="button"
+          tabindex="0"
+          (click)="scrollToSection('contact')"
+          (keydown.enter)="scrollToSection('contact')"
+          class="btn-custom"
+        >
+          Contáctame
+        </a>
       </div>
-      <div class="scroll-down-btn" (click)="scrollToSection('about')">
+      <div
+        class="scroll-down-btn"
+        role="button"
+        tabindex="0"
+        (click)="scrollToSection('about')"
+        (keydown.enter)="scrollToSection('about')"
+      >
         <i class="fas fa-arrow-right scroll-arrow"></i>
       </div>
     </div>
@@ -41,7 +63,14 @@
         <i class="fas fa-envelope"></i>
       </a>
     </div>
-    <a class="get-in-touch">Descargar CV</a>
+
+    <a
+      role="button"
+      tabindex="0"
+      class="get-in-touch"
+    >
+      Descargar CV
+    </a>
   </div>
 </div>
 
