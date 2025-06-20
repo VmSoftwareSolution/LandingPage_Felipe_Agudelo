@@ -1,4 +1,12 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  AfterViewChecked
+} from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +14,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } fr
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
-export default class Home implements OnInit, OnDestroy, AfterViewInit {
+export default class Home implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked {
 
   @ViewChild('nameElement') nameElement!: ElementRef;
   @ViewChild('profileImage') profileImage!: ElementRef;
@@ -19,8 +27,7 @@ export default class Home implements OnInit, OnDestroy, AfterViewInit {
 
   private observer!: IntersectionObserver;
   private resizeListener!: () => void;
-  private currentBreakpoint: string = 'desktop';
-
+  private currentBreakpoint = 'desktop';
   ngOnInit(): void {
     this.setupIntersectionObserver();
     this.setupResizeListener();
@@ -31,6 +38,16 @@ export default class Home implements OnInit, OnDestroy, AfterViewInit {
     setTimeout(() => {
       this.typeWriter();
     }, 500);
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.aboutTitle?.nativeElement && !this.aboutTitle.nativeElement.hasAttribute('data-observed')) {
+      this.observeElements();
+
+      [this.aboutTitle, this.aboutParagraph, this.aboutParagraph2, this.aboutParagraph3, this.aboutParagraph4]
+        .filter(el => el?.nativeElement)
+        .forEach(el => el!.nativeElement.setAttribute('data-observed', 'true'));
+    }
   }
 
   ngOnDestroy(): void {
@@ -140,16 +157,6 @@ export default class Home implements OnInit, OnDestroy, AfterViewInit {
           this.observer.observe(element);
         }
       });
-    }
-  }
-
-  ngAfterViewChecked(): void {
-    if (this.aboutTitle?.nativeElement && !this.aboutTitle.nativeElement.hasAttribute('data-observed')) {
-      this.observeElements();
-
-      [this.aboutTitle, this.aboutParagraph, this.aboutParagraph2, this.aboutParagraph3, this.aboutParagraph4]
-        .filter(el => el?.nativeElement)
-        .forEach(el => el!.nativeElement.setAttribute('data-observed', 'true'));
     }
   }
 
