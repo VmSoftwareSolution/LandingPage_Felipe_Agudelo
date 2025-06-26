@@ -67,4 +67,13 @@ export class Navbar implements OnInit, OnDestroy {
       this.closeMenu();
     }
   };
+
+  scrollTo(sectionId: string): void {
+    this.setActiveSection(sectionId);
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
 }
