@@ -1,4 +1,5 @@
-<section class="portfolio-intro">
+<section id="proyecto">
+  <section class="portfolio-intro">
   <div class="portfolio-content">
     <span class="portfolio-label">Portafolio</span>
     <h2 class="portfolio-number">02</h2>
@@ -8,9 +9,27 @@
     </p>
   </div>
 </section>
+
 <section class="portfolio-center-block">
   <h3 class="portfolio-title">Mis mejores Proyectos.</h3>
   <p class="portfolio-description">
      Estos proyectos no solo representan habilidades técnicas, sino también creatividad, trabajo en equipo y un compromiso con ofrecer experiencias únicas e inmersivas para los jugadores.
   </p>
+</section>
+
+<section class="portfolio-section">
+  <div class="masonry-grid">
+    <div
+      class="portfolio-item"
+      *ngFor="let item of gridItems; let i = index"
+      [ngClass]="getItemHeightClass(i)"
+    >
+      <img [src]="item.image" alt="{{ item.title }}">
+      <div class="overlay">
+        <h5 class="text-white fw-bold mb-1">{{ item.title }}</h5>
+        <small class="text-light">{{ item.category }}</small>
+      </div>
+    </div>
+  </div>
+</section>
 </section>

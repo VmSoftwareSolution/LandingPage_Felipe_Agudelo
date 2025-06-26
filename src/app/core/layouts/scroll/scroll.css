@@ -1,0 +1,49 @@
+/* Scroll Down Button */
+.scroll-down-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border: 2px solid #f07b0d;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  animation: fadeInUp 1s ease-out 1.5s both, bounce 2s infinite;
+  box-shadow: 0 4px 15px rgba(240, 123, 13, 0.2);
+}
+
+.scroll-down-btn:hover {
+  background: #f07b0d;
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 10px 30px rgba(240, 123, 13, 0.4);
+}
+
+.scroll-down-btn:hover .scroll-arrow {
+  color: white;
+}
+
+.scroll-arrow {
+  font-size: 20px;
+  color: #f07b0d;
+  transition: all 0.3s ease;
+  transform: rotate(90deg);
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
