@@ -50,3 +50,22 @@
   line-height: 1.3;
   z-index: 2;
 }
+.portfolio-center-block {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 1rem;
+}
+
+.portfolio-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.portfolio-description {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+}
