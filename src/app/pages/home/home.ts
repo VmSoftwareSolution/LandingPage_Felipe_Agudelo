@@ -6,8 +6,8 @@ import {
   ElementRef,
   AfterViewInit,
   AfterViewChecked,
-  Inject,
-  PLATFORM_ID
+  PLATFORM_ID,
+  inject
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 @Component({
@@ -30,7 +30,7 @@ export default class Home implements OnInit, OnDestroy, AfterViewInit, AfterView
   private observer!: IntersectionObserver;
   private resizeListener!: () => void;
   private currentBreakpoint = 'desktop';
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  platformId = inject(PLATFORM_ID);
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
