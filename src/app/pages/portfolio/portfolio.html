@@ -1,35 +1,51 @@
 <section id="proyecto">
   <section class="portfolio-intro">
-  <div class="portfolio-content">
-    <span class="portfolio-label">Portafolio</span>
-    <h2 class="portfolio-number">02</h2>
+    <div class="portfolio-content">
+      <span class="portfolio-label">Portafolio</span>
+      <h2 class="portfolio-number">02</h2>
+      <p class="portfolio-description">
+        Una muestra de mis proyectos, <br />
+        los proyectos mas destacados!
+      </p>
+    </div>
+  </section>
+
+  <section class="portfolio-center-block">
+    <h3 class="portfolio-title">Mis mejores Proyectos.</h3>
     <p class="portfolio-description">
-      Una muestra de mis proyectos, <br />
-      los proyectos mas destacados!
+      Estos proyectos no solo representan habilidades técnicas, sino también creatividad, trabajo en equipo y un
+      compromiso con ofrecer experiencias únicas e inmersivas para los jugadores.
     </p>
-  </div>
-</section>
+  </section>
 
-<section class="portfolio-center-block">
-  <h3 class="portfolio-title">Mis mejores Proyectos.</h3>
-  <p class="portfolio-description">
-     Estos proyectos no solo representan habilidades técnicas, sino también creatividad, trabajo en equipo y un compromiso con ofrecer experiencias únicas e inmersivas para los jugadores.
-  </p>
-</section>
-
-<section class="portfolio-section">
-  <div class="masonry-grid">
-    <div
-      class="portfolio-item"
-      *ngFor="let item of gridItems; let i = index"
-      [ngClass]="getItemHeightClass(i)"
-    >
-      <img [src]="item.image" alt="{{ item.title }}">
-      <div class="overlay">
-        <h5 class="text-white fw-bold mb-1">{{ item.title }}</h5>
-        <small class="text-light">{{ item.category }}</small>
+  <section class="portfolio-section">
+    <div class="masonry-grid">
+      <div class="portfolio-item" *ngFor="let item of gridItems; let i = index" [ngClass]="getItemHeightClass(i)"  (click)="openPreview(i)">
+        <img [src]="item.image" alt="{{ item.title }}">
+        <div class="overlay">
+          <h5 class="text-white fw-bold mb-1">{{ item.title }}</h5>
+          <small class="text-light">{{ item.category }}</small>
+        </div>
       </div>
     </div>
+  </section>
+  <div class="lightbox" *ngIf="isPreviewVisible">
+  <div class="lightbox-content">
+    <button class="close-btn" (click)="closePreview()">×</button>
+
+    <button class="nav-btn left" (click)="previousImage()">←</button>
+
+    <div class="image-container">
+      <img [src]="currentImage.image" [alt]="currentImage.title">
+      <div class="caption">
+        <h5>{{ currentImage.title }}</h5>
+        <small>{{ currentImage.category }}</small>
+        <p>{{ currentImage.description }}</p>
+        <a [href]="currentImage.link" target="_blank" class="text-light underline">Ir al proyecto →</a>
+      </div>
+    </div>
+
+    <button class="nav-btn right" (click)="nextImage()">→</button>
   </div>
-</section>
+</div>
 </section>
