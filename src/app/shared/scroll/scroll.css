@@ -5,9 +5,9 @@
   right: 30px;
   width: 60px;
   height: 60px;
-  border: 2px solid #f07b0d;
+  border: 2px solid #a84c00;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
+  background: transparent;
   backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
@@ -20,7 +20,7 @@
 }
 
 .scroll-down-btn:hover {
-  background: #f07b0d;
+  background: #a84c00;
   transform: translateY(-5px) scale(1.1);
   box-shadow: 0 10px 30px rgba(240, 123, 13, 0.4);
 }
@@ -31,7 +31,7 @@
 
 .scroll-arrow {
   font-size: 20px;
-  color: #f07b0d;
+  color: #a84c00;
   transition: all 0.3s ease;
   transform: rotate(90deg);
 }

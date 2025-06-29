@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import Home from "../home/home";
 import { Portfolio } from "../portfolio/portfolio";
-import { Scroll } from "../../core/layouts/scroll/scroll";
+import { Scroll } from "../../shared/scroll/scroll";
 
 @Component({
   selector: 'app-landinpage',
