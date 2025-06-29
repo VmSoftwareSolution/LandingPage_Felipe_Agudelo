@@ -20,7 +20,10 @@
 
   <section class="portfolio-section">
     <div class="masonry-grid">
-      <div class="portfolio-item" *ngFor="let item of gridItems; let i = index" [ngClass]="getItemHeightClass(i)"  (click)="openPreview(i)">
+      <div class="portfolio-item" *ngFor="let item of gridItems; let i = index" [ngClass]="getItemHeightClass(i)"
+        (click)="openPreview(i)" (keydown.enter)="openPreview(i)" (keydown.space)="openPreview(i)" tabindex="0"
+        role="button">
+
         <img [src]="item.image" alt="{{ item.title }}">
         <div class="overlay">
           <h5 class="text-white fw-bold mb-1">{{ item.title }}</h5>
@@ -30,22 +33,22 @@
     </div>
   </section>
   <div class="lightbox" *ngIf="isPreviewVisible">
-  <div class="lightbox-content">
-    <button class="close-btn" (click)="closePreview()">×</button>
+    <div class="lightbox-content">
+      <button class="close-btn" (click)="closePreview()">×</button>
 
-    <button class="nav-btn left" (click)="previousImage()">←</button>
+      <button class="nav-btn left" (click)="previousImage()">←</button>
 
-    <div class="image-container">
-      <img [src]="currentImage.image" [alt]="currentImage.title">
-      <div class="caption">
-        <h5>{{ currentImage.title }}</h5>
-        <small>{{ currentImage.category }}</small>
-        <p>{{ currentImage.description }}</p>
-        <a [href]="currentImage.link" target="_blank" class="text-light underline">Ir al proyecto →</a>
+      <div class="image-container">
+        <img [src]="currentImage.image" [alt]="currentImage.title">
+        <div class="caption">
+          <h5>{{ currentImage.title }}</h5>
+          <small>{{ currentImage.category }}</small>
+          <p>{{ currentImage.description }}</p>
+          <a [href]="currentImage.link" target="_blank" class="text-light underline">Ir al proyecto →</a>
+        </div>
       </div>
-    </div>
 
-    <button class="nav-btn right" (click)="nextImage()">→</button>
+      <button class="nav-btn right" (click)="nextImage()">→</button>
+    </div>
   </div>
-</div>
 </section>
