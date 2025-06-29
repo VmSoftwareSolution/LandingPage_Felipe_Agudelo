@@ -1,14 +1,16 @@
-import { Component, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
+import { ElementRef, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-mouse',
-  imports: [],
+  standalone: true,
   templateUrl: './mouse.html',
   styleUrl: './mouse.css',
-  standalone: true
+  imports: []
 })
 export class Mouse {
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  private el = inject(ElementRef);
+  private renderer = inject(Renderer2);
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(e: MouseEvent) {
@@ -32,5 +34,4 @@ export class Mouse {
       this.renderer.removeClass(ring, 'cursor-hover');
     }
   }
-
 }
