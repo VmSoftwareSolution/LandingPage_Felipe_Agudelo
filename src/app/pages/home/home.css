@@ -62,7 +62,7 @@
 
 .hello-text {
   font-size: 24px;
-  color: #f07b0d;
+  color: #a84c00;
   letter-spacing: 3px;
   text-transform: uppercase;
   font-weight: 600;
@@ -143,6 +143,7 @@
   z-index: -1;
 }
 
+
 .btn-custom:hover::before {
   left: 0;
 }
@@ -161,7 +162,7 @@
 
 .btn-primary-custom:hover {
   background-color: transparent;
-  color: #2c2c2c;
+  color: #ffffff;
 }
 
 .hero-right {
@@ -208,6 +209,15 @@
   animation: fadeInRight 1s ease-out 1s both;
 }
 
+.vertical-divider {
+  width: 2px;
+  height: 400px;
+  background-color: white;
+  opacity: 0.2;
+  margin: 20px auto 0 auto;
+}
+
+
 @keyframes fadeInRight {
   from {
     opacity: 0;
@@ -236,7 +246,7 @@
 }
 
 .social-link:hover {
-  background: rgba(240, 123, 13, 0.9);
+  background: #a84c00;
   color: white;
   transform: translateX(-10px) scale(1.1);
   text-decoration: none;
@@ -254,7 +264,7 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 500;
-  border: 2px solid #f07b0d;
+  border: 2px solid #a84c00;
   padding: 15px 30px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
@@ -264,7 +274,7 @@
 }
 
 .get-in-touch:hover {
-  background: #f07b0d;
+  background: #a84c00;
   color: white;
   text-decoration: none;
   transform: translateX(-50%) translateY(-5px);
@@ -393,11 +403,11 @@
 
   @keyframes pulseOrange {
     0%, 100% {
-      color: #f07b0d;
+      color: #a84c00;
       text-shadow: 0 3px 6px rgba(0, 0, 0, 0.8);
     }
     50% {
-      color: #ff8c1a;
+      color: #a84c00;
       text-shadow: 0 0 25px rgba(240, 123, 13, 0.6), 0 3px 6px rgba(0, 0, 0, 0.8);
     }
   }
@@ -452,13 +462,13 @@
 
   .btn-primary-custom {
     background: rgba(240, 123, 13, 0.8);
-    border-color: #f07b0d;
+    border-color: #a84c00;
     color: white;
   }
 
   .btn-primary-custom:hover {
-    background: #f07b0d;
-    border-color: #f07b0d;
+    background: #a84c00;
+    border-color: #a84c00;
     color: white;
   }
 
@@ -481,14 +491,14 @@
     width: 50px;
     height: 50px;
     font-size: 20px;
-    border: 2px solid #f07b0d;
+    border: 2px solid #a84c00;
     color: #f07b0d;
     background: white;
     border-radius: 50%;
   }
 
   .social-link:hover {
-    background: #f07b0d;
+    background: #a84c00;
     color: white;
     transform: scale(1.15);
     box-shadow: 0 8px 20px rgba(240, 123, 13, 0.4);
@@ -633,12 +643,12 @@
 
   .btn-primary-custom {
     background: rgba(240, 123, 13, 0.8);
-    border-color: #f07b0d;
+    border-color: #a84c00;
     color: white;
   }
 
   .btn-primary-custom:hover {
-    background: #f07b0d;
+    background: #a84c00;
     border-color: #f07b0d;
     color: white;
   }
@@ -662,13 +672,13 @@
     height: 40px;
     font-size: 16px;
     border: 2px solid #f07b0d;
-    color: #f07b0d;
+    color: #a84c00;
     background: white;
     border-radius: 50%;
   }
 
   .social-link:hover {
-    background: #f07b0d;
+    background: #a84c00;
     color: white;
     transform: scale(1.1);
   }
@@ -707,10 +717,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #f07b0d;
+  background: #a84c00;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d66b0b;
+  background: #a84c00;
 }
