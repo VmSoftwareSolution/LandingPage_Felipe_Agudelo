@@ -146,6 +146,64 @@
   background-color: rgba(0, 0, 0, 0.558);
 }
 
+.lightbox {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 80%;
+  text-align: center;
+  color: white;
+}
+
+.image-container img {
+  max-height: 70vh;
+  border-radius: 8px;
+}
+
+.caption {
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.nav-btn, .close-btn {
+  position: absolute;
+  top: 50%;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  transform: translateY(-50%);
+  z-index: 10001;
+}
+
+.nav-btn.left {
+  left: -60px;
+}
+
+.nav-btn.right {
+  right: -60px;
+}
+
+.close-btn {
+  top: 10px;
+  right: 20px;
+  color: black;
+  transform: none;
+  font-size: 2.5rem;
+}
+
+
 @media (max-width: 1200px) {
   .portfolio-item.short {
     height: 220px;
@@ -158,6 +216,13 @@
   .portfolio-item.tall {
     height: 520px;
   }
+   .masonry-grid {
+    column-count: 3;
+  }
+
+  .portfolio-item.short { height: 220px; }
+  .portfolio-item.medium { height: 280px; }
+  .portfolio-item.tall { height: 360px; }
 }
 
 @media (max-width: 992px) {
@@ -198,6 +263,27 @@
 
   .portfolio-item.tall {
     height: 350px;
+  }
+
+   .masonry-grid {
+    column-count: 2;
+  }
+
+  .portfolio-item.short { height: 200px; }
+  .portfolio-item.medium { height: 240px; }
+  .portfolio-item.tall { height: 300px; }
+
+  .portfolio-intro {
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .portfolio-number {
+    font-size: 140px;
+    top: -40px;
+    left: 0;
   }
 }
 
@@ -251,5 +337,61 @@
 
   .overlay small {
     font-size: 0.85rem;
+  }
+
+  .lightbox-content {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  .image-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image-container img {
+    width: 100%;
+    height: auto;
+    max-height: 50vh;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .nav-btn.left {
+    left: 5px;
+  }
+
+  .nav-btn.right {
+    right: 5px;
+  }
+
+  .nav-btn {
+    font-size: 1.5rem;
+  }
+
+  .caption {
+    font-size: 0.9rem;
+    padding: 0 0.5rem;
+  }
+
+  .caption h5 {
+    font-size: 1.1rem;
+  }
+
+  .caption small {
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .caption p {
+    font-size: 0.9rem;
+  }
+
+  .caption a {
+    font-size: 0.9rem;
+    word-break: break-word;
   }
 }

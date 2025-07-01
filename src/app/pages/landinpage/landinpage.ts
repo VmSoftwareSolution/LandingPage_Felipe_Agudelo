@@ -4,6 +4,7 @@ import { Portfolio } from "../portfolio/portfolio";
 import { Scroll } from "../../core/layouts/scroll/scroll";
 import { About } from '../about/about';
 
+
 @Component({
   selector: 'app-landinpage',
   imports: [Home, Portfolio, Scroll, About],
