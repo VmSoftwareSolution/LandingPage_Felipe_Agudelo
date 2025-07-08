@@ -24,6 +24,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
+    - name: Ensure required dependencies are present
+      run: |
+        npm install bootstrap@5.3.3 @fortawesome/fontawesome-free@6.5.2 --save
+
     - name: Install dependencies
       run: npm ci
 

@@ -1,59 +1,52 @@
-# LandingPage
+# Portafolio 
+Este repositorio tiene como objetivo funcionar como portafolio profesional, en el cual se presentan los proyectos, experiencia, habilidades y contacto. Su proposito es brindar mayor visibilidad al perfil, generar oportunidades de contacto y facilitar el acceso a posibles colaboraciones o propuestas laborales.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0.
+## Tabla de Contenidos
+- [Instalacion de Dependencias](#instalacion-de-dependencias)
+- [Correr Proyecto](#correr-proyecto)
 
-## Development server
+## Instalacion de Dependencias
+Para correr este proyecto en local y poder ejecutarlo debes seguir los siguientes passos.
 
-To start a local development server, run:
+1.**Instalacion de NPM**: Para este proyecto se necesita la instalacion de npm y node. A la fecha actual de este documento se esta trabajando con las siguientes versiones:
+  ```
+  node: v22.16.0
+  npm: 10.9.2
+  ```
+Para verificar que version tiene instalado en tu sistema puedes ejecutar los siguientes comandos:
+```
+node -v
+npm -v
+```
+En caso de no ser la misma version o no tenerlo instalado puedes ingresar al siguiente link y descargarlo: https://nodejs.org/es. Asegurate de descargar la misma version o una posterior a la que esta en este documento.
 
-```bash
+2.**Instalacion de Angular**: Para este proyecto se utiliza el Framework de Angular. Actualmente se esta trabajando con la siguiente version:
+```
+20.0.0
+```
+Para verificar la version que tiene en su sistema puedes ejecutar el siguiente comando:
+```
+ng --version
+```
+En caso de no tener la misma version o no tenerlo instalado puedes ejecutar el siguiente comando:
+```
+npm install -g @angular/cli
+```
+Este comando instalará la última versión de Angular CLI en tu equipo. Es importante tener en cuenta que puedes tener instalada una versión más reciente de Angular (por ejemplo, la versión 40), mientras que el proyecto puede estar desarrollado en una versión anterior (como la 20), y no habrá ningún problema: el proyecto funcionará correctamente.
+
+Sin embargo, si deseas actualizar el proyecto a la última versión de Angular, es recomendable revisar cuidadosamente los cambios y posibles rupturas introducidos en las nuevas versiones. Angular suele modificar patrones, estructuras o dependencias entre versiones, lo que puede hacer que ciertas funcionalidades dejen de funcionar si no se adaptan.
+
+En resumen: puedes tener una versión más actual en tu máquina que la del proyecto sin que eso afecte su ejecución, pero actualizar el proyecto sí requiere una evaluación previa para evitar errores inesperados.
+
+3.**Instalar carpeta de node_modules**: Angular requiere una serie de dependencias adicionales para poder ejecutar correctamente el proyecto. Estas dependencias están definidas en el archivo package.json, y se instalarán automáticamente con el siguiente comando:
+```
+npm install
+```
+Este comando analizará el archivo de configuración del proyecto y descargará todas las librerías necesarias dentro de la carpeta node_modules.
+
+## Correr Proyecto
+Una vez tengas todos los programas necesarios para correr el proyecto, debes estar en la raiz del proyecto, abrir una nueva terminal y ejecutar el siguiente comando para correr el proyecto en tu maquina:
+```
 ng serve
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Esto correra el proyecto y te dira en la termina que el proyecto se esta ejecutando en la siguiente direccion *http://localhost:4200*
