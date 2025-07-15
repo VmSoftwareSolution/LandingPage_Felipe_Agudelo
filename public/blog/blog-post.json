@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "generic-post",
+    "title": "Introducción al Diseño Web Moderno",
+    "excerpt": "Explora los principios clave del diseño web moderno y cómo mejorar la experiencia de usuario.",
+    "imageUrl": "/blog-bg-01.jpg",
+    "date": "septiembre 06/2025",
+    "category": "Diseño",
+    "readingTime": 4
+  },
+  {
+    "slug": "seo-basico",
+    "title": "Guía Básica de SEO para Principiantes",
+    "excerpt": "Aprende los fundamentos del posicionamiento en buscadores con estos consejos de SEO fáciles de aplicar.",
+    "imageUrl": "/blog-bg-01.jpg",
+    "date": "2024-12-05",
+    "category": "Marketing",
+    "readingTime": 5
+  },
+  {
+    "slug": "tipografia-en-ui",
+    "title": "El Rol de la Tipografía en Interfaces de Usuario",
+    "excerpt": "Descubre cómo la tipografía puede influir en la experiencia de usuario en aplicaciones web y móviles.",
+    "imageUrl": "/blog-bg-01.jpg",
+    "date": "2024-12-10",
+    "category": "UI/UX",
+    "readingTime": 3
+  },
+  {
+    "slug": "seo-basico",
+    "title": "Guía Básica de SEO para Principiantes",
+    "excerpt": "Aprende los fundamentos del posicionamiento en buscadores con estos consejos de SEO fáciles de aplicar.",
+    "imageUrl": "/blog-bg-01.jpg",
+    "date": "2024-12-05",
+    "category": "Marketing",
+    "readingTime": 5
+  },
+  {
+    "slug": "seo-basico",
+    "title": "Guía Básica de SEO para Principiantes",
+    "excerpt": "Aprende los fundamentos del posicionamiento en buscadores con estos consejos de SEO fáciles de aplicar.",
+    "imageUrl": "/blog-bg-01.jpg",
+    "date": "2024-12-05",
+    "category": "Marketing",
+    "readingTime": 5
+  }
+]

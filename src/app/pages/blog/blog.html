@@ -1,0 +1,39 @@
+<div class="blog-container" id="blog">
+  <section class="blog-header">
+  <p class="blog-journal">JOURNAL</p>
+  <h2 class="blog-main-title">Latest From The Blog.</h2>
+  <p class="blog-description">
+    Lorem ipsum Dolor adipisicing nostrud et aute. Excepteur amet commodo ea dolore irure esse Duis nulla sint fugiat cillum ullamco proident aliquip quis qui voluptate dolore veniam Ut laborum non est in officia.
+  </p>
+</section>
+
+  <div class="blog-grid">
+    <div class="blog-card" *ngFor="let post of paginatedPosts">
+      <img [src]="post.imageUrl" alt="Miniatura" class="thumbnail" />
+      <div class="content">
+        <div class="date">{{ post.date }}</div>
+        <h3 class="title">{{ post.title }}</h3>
+        <p class="excerpt">{{ post.excerpt }}</p>
+        <div class="meta">
+          <span class="category">{{ post.category }}</span>
+          <span class="reading-time">⏱️ {{ post.readingTime }} min de lectura</span>
+        </div>
+        <a [routerLink]="['/blog', post.slug]" class="read-more">Leer más</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="divider"></div>
+
+  <div class="pagination">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">«</button>
+    <button *ngFor="let page of totalPagesArray" (click)="goToPage(page)" [class.active]="page === currentPage">
+      {{ page }}
+    </button>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">»</button>
+  </div>
+
+
+
+</div>
