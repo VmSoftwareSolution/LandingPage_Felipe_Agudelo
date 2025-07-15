@@ -1,0 +1,35 @@
+<section class="reference-section" id="testimonios">
+  <h2 class="section-title">What People Say.</h2>
+
+  <div class="navigation-controls left">
+    <button class="nav-button" (click)="previousSlide()">←</button>
+  </div>
+
+  <div class="navigation-controls right">
+    <button class="nav-button" (click)="nextSlide()">→</button>
+  </div>
+
+  <div class="carousel-wrapper" #carousel
+       (mousedown)="startDrag($event)"
+       (mouseup)="endDrag()"
+       (mouseleave)="endDrag()"
+       (mousemove)="onDrag($event)">
+    <div class="carousel" [style.cursor]="isDragging ? 'grabbing' : 'grab'">
+      <div class="reference-card" *ngFor="let reference of references">
+        <div class="reference-layout">
+          <div class="author-img">
+            <img [src]="reference.image" alt="{{reference.name}}" />
+            <div class="vertical-line"></div>
+          </div>
+          <div class="content">
+            <p class="quote">{{ reference.comment }}</p>
+            <div class="author-details">
+              <div class="author-name">{{ reference.name | uppercase }}</div>
+              <div class="author-role">{{ reference.role }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

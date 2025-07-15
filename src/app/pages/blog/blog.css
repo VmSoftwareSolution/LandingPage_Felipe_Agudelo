@@ -1,0 +1,166 @@
+.blog-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 7rem;
+}
+.blog-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 3rem auto 5rem auto;
+}
+
+.blog-journal {
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #d07900;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.blog-main-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+  color: #111;
+}
+
+.blog-description {
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.7;
+}
+
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 2rem;
+}
+
+.blog-card {
+  background: #fff;
+  padding: 1rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.thumbnail {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.date {
+  color:#d07900;
+  font-weight: 700;
+}
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+}
+
+.excerpt {
+  font-size: 1rem;
+  color: #555;
+}
+
+.category {
+  font-weight: 500;
+}
+
+.reading-time {
+  color: #d07900;
+  font-style: italic;
+}
+
+.meta {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.read-more {
+  margin-top: 1rem;
+  display: inline-block;
+  font-weight: 600;
+  font-style: oblique;
+  color: #555;
+  text-decoration: underline;
+}
+
+.divider {
+  height: 1px;
+  background-color: #ccc;
+  margin: 2rem 0;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.pagination button {
+  border: none;
+  background: none;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.pagination button.active {
+  color: #fff;
+  background: #d07900;
+  border-radius: 7px;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media screen and (max-width: 768px) {
+  .blog-container {
+    padding: 2rem;
+  }
+
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-main-title {
+    font-size: 2.2rem;
+  }
+
+  .blog-description {
+    font-size: 1rem;
+  }
+
+  .thumbnail {
+    height: 180px;
+  }
+
+  .meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+  }
+
+  .pagination button {
+    padding: 0.4rem 0.6rem;
+  }
+}
