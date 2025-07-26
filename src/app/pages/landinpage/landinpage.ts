@@ -5,10 +5,11 @@ import { Scroll } from "../../shared/scroll/scroll";
 import { About } from '../about/about';
 import { Contact } from '../contact/contact';
 import { Footer } from '../../core/layouts/footer/footer';
+import { Testimonial } from '../testimonial/testimonial';
 
 @Component({
   selector: 'app-landinpage',
-  imports: [Home, Portfolio, Scroll, About , Contact, Footer],
+  imports: [Home, Portfolio, Scroll, About , Contact, Footer, Testimonial],
   templateUrl: './landinpage.html',
   styleUrl: './landinpage.css'
 })
