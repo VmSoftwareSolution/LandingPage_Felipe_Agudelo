@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg custom-navbar">
+<nav class="navbar navbar-expand-lg custom-navbar" [class.scrolled]="scrolled">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">sudo apt-get upgrade Felipe.</a>
 
@@ -14,35 +14,13 @@
 
     <div class="collapse navbar-collapse" [class.show]="menuOpen" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
+        <li class="nav-item" *ngFor="let link of navLinks; let i = index">
           <a class="nav-link"
-             [class.active]="activeSection === 'inicio'"
-             (click)="setActiveSection('inicio')"
-             href="#">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"
-             [class.active]="activeSection === 'sobre'"
-             (click)="scrollTo('sobre')"
-             href="#">Sobre Mí</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"
-            [class.active]="activeSection === 'proyecto'"
-            (click)="scrollTo('proyecto')"
-            href="#">Proyecto</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"
-             [class.active]="activeSection === 'blog'"
-             (click)="setActiveSection('blog')"
-             href="#">Blog</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"
-             [class.active]="activeSection === 'testimonios'"
-             (click)="scrollTo('testimonios')"
-             href="#">Testimonios</a>
+             [class.active]="activeSection === link.section"
+             (click)="scrollTo(link.section)"
+             href="#">
+            {{ link.label }}
+          </a>
         </li>
       </ul>
     </div>
