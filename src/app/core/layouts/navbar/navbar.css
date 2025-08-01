@@ -1,8 +1,6 @@
-/* Estructura base */
 .custom-navbar {
   position: fixed;
-  background-color:
-#121212;
+  background-color: #121212;
   width: 80%;
   margin: 40px auto;
   padding: 20px 60px;
@@ -14,14 +12,12 @@
   right: 0;
 }
 
-/* Logo */
 .navbar-brand {
   font-size: 24px;
   font-weight: 700;
   color: #fff !important;
 }
 
-/* Links */
 .navbar-nav .nav-link {
   color: #aaa !important;
   margin: 0 15px;
@@ -50,7 +46,6 @@
   to { width: 100%; }
 }
 
-/* Botón hamburguesa */
 .navbar-toggler {
   display: none;
   background: transparent;
@@ -92,7 +87,6 @@
   left: 0;
 }
 
-/* Animación X */
 .navbar-toggler.active span {
   background-color: transparent;
   transform: rotate(45deg);
@@ -101,15 +95,13 @@
 .navbar-toggler.active span::before {
   transform: rotate(90deg);
   top: 0;
-  background-color:
-#ff6b6b;
+  background-color: #ff6b6b;
 }
 
 .navbar-toggler.active span::after {
   transform: rotate(0deg);
   bottom: 0;
-  background-color:
-#ff6b6b;
+  background-color: #ff6b6b;
 }
 
 .navbar-toggler.active::before {
@@ -130,7 +122,6 @@
   100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
 }
 
-/* Responsive */
 @media (max-width: 991px) {
   .navbar-toggler { display: flex; }
   .custom-navbar {
@@ -156,7 +147,6 @@
     transform: translateX(0);
   }
 
-  /* Delay en cada enlace para animación escalonada */
   .navbar-collapse.show .nav-item:nth-child(1) .nav-link { transition-delay: 0.1s; }
   .navbar-collapse.show .nav-item:nth-child(2) .nav-link { transition-delay: 0.2s; }
   .navbar-collapse.show .nav-item:nth-child(3) .nav-link { transition-delay: 0.3s; }
@@ -174,5 +164,17 @@
 
   .navbar-brand {
     font-size: 20px;
+  }
+}
+
+@media (min-width: 992px) {
+  .custom-navbar.scrolled {
+    width: 100vw;
+    margin: 0;
+    padding: 10px 30px;
+    border-radius: 0;
+    background-color: #0f0f0f;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+    border: none;
   }
 }

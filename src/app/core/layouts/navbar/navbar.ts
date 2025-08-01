@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, OnDestroy, OnInit, inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, PLATFORM_ID, ElementRef, Renderer2 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -11,9 +11,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class Navbar implements OnInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
+  private scrollListener: (() => void) | null = null;
 
   menuOpen = false;
   activeSection = 'inicio';
+  scrolled = false;
 
   navLinks = [
     { section: 'inicio', label: 'Inicio' },
@@ -23,10 +25,15 @@ export class Navbar implements OnInit, OnDestroy {
     { section: 'testimonios', label: 'Testimonios' }
   ];
 
+  constructor(private renderer: Renderer2, private host: ElementRef<HTMLElement>) {}
+
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       document.addEventListener('click', this.handleClickOutside);
       document.addEventListener('keydown', this.handleEscape);
+      this.scrollListener = this.onScroll.bind(this);
+      window.addEventListener('scroll', this.scrollListener, { passive: true });
+      window.addEventListener('resize', this.onScroll.bind(this));
     }
   }
 
@@ -34,7 +41,25 @@ export class Navbar implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       document.removeEventListener('click', this.handleClickOutside);
       document.removeEventListener('keydown', this.handleEscape);
+      if (this.scrollListener) window.removeEventListener('scroll', this.scrollListener);
       document.body.style.overflow = 'auto';
+    }
+  }
+
+  private onScroll(): void {
+    if (typeof window === 'undefined') return;
+    const isDesktop = window.innerWidth > 991;
+    if (!isDesktop) {
+      this.scrolled = false;
+      return;
+    }
+
+    const threshold = 150;
+    const y = window.scrollY || window.pageYOffset;
+    this.scrolled = y > threshold;
+
+    if (this.scrolled && this.menuOpen) {
+      this.closeMenu();
     }
   }
 
@@ -54,7 +79,7 @@ export class Navbar implements OnInit, OnDestroy {
   }
 
   private handleClickOutside = (event: Event): void => {
-    const navbar = document.querySelector('.custom-navbar');
+    const navbar = this.host.nativeElement.querySelector('.custom-navbar');
     const target = event.target as HTMLElement;
 
     if (this.menuOpen && navbar && !navbar.contains(target)) {
@@ -75,5 +100,4 @@ export class Navbar implements OnInit, OnDestroy {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   }
-
 }
