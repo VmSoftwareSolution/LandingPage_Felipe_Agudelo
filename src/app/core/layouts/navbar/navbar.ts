@@ -11,8 +11,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class Navbar implements OnInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
-  private scrollListener: (() => void) | null = null;
+  private host = inject(ElementRef<HTMLElement>);
+  private renderer = inject(Renderer2);
 
+  private scrollListener: (() => void) | null = null;
   menuOpen = false;
   activeSection = 'inicio';
   scrolled = false;
@@ -24,8 +26,6 @@ export class Navbar implements OnInit, OnDestroy {
     { section: 'blog', label: 'Blog' },
     { section: 'testimonios', label: 'Testimonios' }
   ];
-
-  constructor(private renderer: Renderer2, private host: ElementRef<HTMLElement>) {}
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
