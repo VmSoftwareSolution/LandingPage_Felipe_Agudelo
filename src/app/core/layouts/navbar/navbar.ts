@@ -21,7 +21,7 @@ export class Navbar implements OnInit, OnDestroy {
 
   navLinks = [
     { section: 'inicio', label: 'Inicio' },
-    { section: 'sobre', label: 'Sobre Mi' },
+    { section: 'sobre', label: 'Sobre mí' },
     { section: 'proyecto', label: 'Proyecto' },
     { section: 'blog', label: 'Blog' },
     { section: 'testimonios', label: 'Testimonios' }
