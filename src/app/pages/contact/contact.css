@@ -1,10 +1,9 @@
 .contact-section {
   display: flex;
-   flex-direction: row;
+  flex-direction: row;
   justify-content: center;
   align-items: flex-start;
   gap: 40px;
-  margin-top: 40px;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
@@ -13,7 +12,6 @@
   background-position: center;
   background-repeat: no-repeat;
   padding: 40px;
-
 
   .container {
     max-width: 1100px;
@@ -35,11 +33,11 @@
   }
 
   .contact-wrapper {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 40px;
-  justify-content: space-between;
-  align-items: stretch;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 40px;
+    justify-content: space-between;
+    align-items: stretch;
   }
 
   .contact-form {
@@ -50,8 +48,7 @@
     gap: 20px;
 
     .form-group {
-      input,
-      textarea {
+      input, textarea {
         width: 100%;
         padding: 12px 15px;
         background: transparent;
@@ -100,10 +97,10 @@
   }
 
   .divider {
-  width: 2px;
-  background-color: rgba(255, 255, 255, 0.3);
-  min-height: 100%;
-  align-self: stretch;
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.3);
+    min-height: 100%;
+    align-self: stretch;
   }
 
   .contact-info {
@@ -128,24 +125,24 @@
   }
 
   @media (max-width: 768px) {
-   .contact-wrapper {
-    flex-direction: column;
-  }
+    .contact-wrapper {
+      flex-direction: column;
+    }
 
-  .contact-form,
-  .contact-info {
-    flex: 1 1 100%;
-  }
+    .contact-form, .contact-info {
+      flex: 1 1 100%;
+    }
 
-  .contact-info p{
-    border-bottom: 1px solid #666;
-  }
-  .contact-form {
-    margin-left: 5px;
-  }
+    .contact-info p {
+      border-bottom: 1px solid #666;
+    }
 
-  .divider {
-    display: none;
+    .contact-form {
+      margin-left: 5px;
+    }
+
+    .divider {
+      display: none;
+    }
   }
-}
 }
