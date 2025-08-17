@@ -1,0 +1,59 @@
+<section class="contact-section">
+  <div class="container">
+    <h2 class="title">Contacto.</h2>
+    <p class="subtitle">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos quae obcaecati reiciendis.
+    </p>
+
+    <div class="contact-wrapper">
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate class="contact-form" data-aos="zoom-in" data-aos-duration="2000">
+        <div class="form-group">
+          <input formControlName="name" type="text" placeholder="Name" />
+          <div class="error" *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">Name is
+            required</div>
+        </div>
+
+        <div class="form-group">
+          <input formControlName="email" type="email" placeholder="Email" />
+          <div class="error" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+            <span *ngIf="contactForm.get('email')?.errors?.['required']">Email is required</span>
+            <span *ngIf="contactForm.get('email')?.errors?.['email']">Invalid email format</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input formControlName="subject" type="text" placeholder="Subject" />
+          <div class="error" *ngIf="contactForm.get('subject')?.touched && contactForm.get('subject')?.invalid">Subject
+            is required</div>
+        </div>
+
+        <div class="form-group">
+          <textarea formControlName="message" rows="5" placeholder="Message"></textarea>
+          <div class="error" *ngIf="contactForm.get('message')?.touched && contactForm.get('message')?.invalid">Message
+            is required</div>
+        </div>
+
+        <button type="submit" [disabled]="sending">SUBMIT</button>
+      </form>
+
+      <div class="divider"></div>
+      <div class="contact-info" data-aos="fade-left" data-aos-duration="2000">
+        <div>
+          <h4>Phone</h4>
+          <p>Phone: (+68) 555 1212</p>
+          <p>Mobile: (+68) 555 0100</p>
+          <p>Fax: (+68) 555 0101</p>
+        </div>
+        <div>
+          <h4>Email</h4>
+          <p>123rnadom&#64;gmail.com</p>
+          <p>456rnadom&#64;gmail.com</p>
+        </div>
+        <div>
+          <h4>Address</h4>
+          <p>1600 Amphitheatre Parkway<br />Mountain View, CA<br />94048 US</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

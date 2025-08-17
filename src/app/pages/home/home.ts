@@ -5,9 +5,11 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
-  AfterViewChecked
+  AfterViewChecked,
+  PLATFORM_ID,
+  inject
 } from '@angular/core';
-
+import { isPlatformBrowser } from '@angular/common';
 @Component({
   selector: 'app-home',
   imports: [],
@@ -28,10 +30,14 @@ export default class Home implements OnInit, OnDestroy, AfterViewInit, AfterView
   private observer!: IntersectionObserver;
   private resizeListener!: () => void;
   private currentBreakpoint = 'desktop';
+  platformId = inject(PLATFORM_ID);
+
   ngOnInit(): void {
-    this.setupIntersectionObserver();
-    this.setupResizeListener();
-    this.detectBreakpoint();
+    if (isPlatformBrowser(this.platformId)) {
+      this.setupIntersectionObserver();
+      this.setupResizeListener();
+      this.detectBreakpoint();
+    }
   }
 
   ngAfterViewInit(): void {
