@@ -17,7 +17,7 @@
         <li class="nav-item" *ngFor="let link of navLinks; let i = index">
           <a class="nav-link"
              [class.active]="activeSection === link.section"
-             (click)="scrollTo(link.section)"
+             (click)="scrollTo($event, link.section)"
              href="#">
             {{ link.label }}
           </a>
