@@ -19,7 +19,7 @@
     text-align: center;
     font-size: 2.75rem;
     font-weight: 600;
-    margin-bottom: 4rem;
+    margin-bottom: 1.5rem;
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
   }
 
@@ -28,7 +28,7 @@
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    overflow: hidden; 
+    overflow: hidden;
     z-index: 2;
   }
 
@@ -105,29 +105,43 @@
 
     &.left {
       left: 1.5rem;
+
+      .nav-button {
+        width: 0;
+        height: 0;
+        border-top: 12px solid transparent;
+        border-bottom: 12px solid transparent;
+        border-right: 18px solid #fff;
+        background: none;
+        border-radius: 0;
+        display: block;
+        cursor: pointer;
+
+        &:hover {
+          border-right-color: #d07900;
+          transform: scale(1.2);
+        }
+      }
     }
 
     &.right {
       right: 1.5rem;
-    }
 
-    .nav-button {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      background: rgba(0, 0, 0, 0.5);
-      color: #fff;
-      font-size: 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      .nav-button {
+        width: 0;
+        height: 0;
+        border-top: 12px solid transparent;
+        border-bottom: 12px solid transparent;
+        border-left: 18px solid #fff;
+        background: none;
+        border-radius: 0;
+        display: block;
+        cursor: pointer;
 
-      &:hover {
-        background: rgba(255, 255, 255, 0.1);
-        transform: scale(1.1);
+        &:hover {
+          border-left-color: #d07900;
+          transform: scale(1.2);
+        }
       }
     }
   }
@@ -138,17 +152,24 @@
     }
 
     .navigation-controls {
-      .nav-button {
-        width: 40px;
-        height: 40px;
-      }
-
       &.left {
         left: 0.5rem;
+
+        .nav-button {
+          border-top: 10px solid transparent;
+          border-bottom: 10px solid transparent;
+          border-right: 16px solid #fff;
+        }
       }
 
       &.right {
         right: 0.5rem;
+
+        .nav-button {
+          border-top: 10px solid transparent;
+          border-bottom: 10px solid transparent;
+          border-left: 16px solid #fff;
+        }
       }
     }
   }

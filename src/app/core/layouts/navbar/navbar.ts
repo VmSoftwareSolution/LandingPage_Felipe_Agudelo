@@ -22,9 +22,10 @@ export class Navbar implements OnInit, OnDestroy {
   navLinks = [
     { section: 'inicio', label: 'Inicio' },
     { section: 'sobre', label: 'Sobre mí' },
+    { section: 'tecnologias', label: 'Tecnologías' },
     { section: 'proyecto', label: 'Proyecto' },
-    { section: 'blog', label: 'Blog' },
-    { section: 'testimonios', label: 'Testimonios' }
+    { section: 'testimonios', label: 'Testimonios' },
+    { section: 'contacto', label: 'Contacto' }
   ];
 
   ngOnInit() {
@@ -93,11 +94,24 @@ export class Navbar implements OnInit, OnDestroy {
     }
   };
 
-  scrollTo(sectionId: string): void {
-    this.setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  scrollTo(event: Event, sectionId: string): void {
+    if (event && typeof event.preventDefault === 'function') {
+      event.preventDefault();
     }
+    this.setActiveSection(sectionId);
+    if (typeof window === 'undefined') return;
+    const element = document.getElementById(sectionId);
+    if (!element) return;
+
+    const navbarEl = this.host.nativeElement.querySelector('.custom-navbar') as HTMLElement | null;
+    const offset = navbarEl ? navbarEl.offsetHeight : 0;
+
+    const rect = element.getBoundingClientRect();
+    const targetY = rect.top + window.scrollY - offset - 10;
+    const currentY = window.scrollY || window.pageYOffset;
+
+    const direction = targetY > currentY ? 'down' : 'up';
+
+    window.scrollTo({ top: Math.max(0, Math.round(targetY)), behavior: 'smooth' });
   }
 }

@@ -1,19 +1,20 @@
-import { 
-  Component, 
-  inject, 
-  PLATFORM_ID, 
-  OnInit 
+import {
+  Component,
+  inject,
+  PLATFORM_ID,
+  OnInit
 } from '@angular/core';
-import { 
-  FormBuilder, 
-  FormGroup, 
-  Validators 
+import {
+  FormBuilder,
+  FormGroup,
+  Validators
 } from '@angular/forms';
 import { ContactService } from '../../core/services/contact-service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { isPlatformBrowser } from '@angular/common';
 import AOS from 'aos';
+
 
 
 @Component({
