@@ -106,14 +106,14 @@ body {
   align-items: center;
   justify-content: flex-start;
   padding: 2rem;
-  position: relative; 
-  overflow: visible; 
+  position: relative;
+  overflow: visible;
   margin-left: 200px;
 }
 
 .image-box {
   position: absolute;
-  left: -150px; 
+  left: -150px;
   top: 50%;
   transform: translateY(-50%);
   padding: 1rem;
@@ -126,7 +126,7 @@ body {
   height: auto;
   display: block;
   border-radius: 4px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .section-label {
@@ -182,6 +182,7 @@ body {
   margin-top: 50px;
   padding: 80px 0;
   background-color: #fff;
+  margin-bottom: 250px;
 }
 
 .career-title {
@@ -198,11 +199,10 @@ body {
 }
 
 .career-item {
-  border-top: 3px solid #ccc;
+  border-top: 1px solid #ccc;
   padding-top: 20px;
   padding-left: 50px;
   padding-right: 50px;
-  border-radius: 100px;
 }
 
 .career-item h3 {
@@ -241,7 +241,7 @@ body {
   background-color: #1f1f1f;
   color: #f1f1f1;
   text-align: center;
-  padding: 80px 20px;
+  padding: 250px 200px;
 }
 
 .skills-title {
@@ -283,7 +283,7 @@ body {
 .skill-box i {
   font-size: 2.5rem;
   margin-bottom: 10px;
-  color: #f39c12;
+  color: #a84c00;
 }
 
 .skill-box p {
