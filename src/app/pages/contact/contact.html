@@ -2,7 +2,7 @@
   <div class="container">
     <h2 class="title">Contacto.</h2>
     <p class="subtitle">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos quae obcaecati reiciendis.
+      Say Hello.
     </p>
     <div class="contact-wrapper">
       <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate class="contact-form"
@@ -32,12 +32,14 @@
             Message is required
           </div>
         </div>
-        <button type="submit" [disabled]="sending" data-aos="fade-down" data-aos-duration="2000" data-aos-delay="200">
+       <button type="submit" [disabled]="sending"
+        data-aos="fade-down"
+        data-aos-duration="2000"
+        data-aos-delay="200"
+        data-aos-once="true">
           SUBMIT
-        </button>
+      </button>
       </form>
-
-      <div class="divider"></div>
 
       <div class="contact-info" data-aos="fade-left" data-aos-duration="2000">
         <div>
