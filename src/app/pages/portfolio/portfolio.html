@@ -1,54 +1,94 @@
 <section id="proyecto">
+
   <section class="portfolio-intro">
-    <div class="portfolio-content">
+    <div class="portfolio-content" >
       <span class="portfolio-label">Portafolio</span>
       <h2 class="portfolio-number">02</h2>
       <p class="portfolio-description">
         Una muestra de mis proyectos, <br />
-        los proyectos mas destacados!
+        los proyectos más destacados!
       </p>
     </div>
   </section>
 
   <section class="portfolio-center-block">
     <h3 class="portfolio-title">Mis mejores Proyectos.</h3>
-    <p class="portfolio-description">
-      Estos proyectos no solo representan habilidades técnicas, sino también creatividad, trabajo en equipo y un
-      compromiso con ofrecer experiencias únicas e inmersivas para los jugadores.
+    <p class="portfolio-sub">
+      Estos proyectos representan habilidades técnicas, creatividad y un
+      compromiso con ofrecer experiencias únicas e inmersivas.
     </p>
+    <div class="title-divider"></div>
   </section>
 
   <section class="portfolio-section">
     <div class="masonry-grid">
-      <div class="portfolio-item" *ngFor="let item of gridItems; let i = index" [ngClass]="getItemHeightClass(i)"
-        (click)="openPreview(i)" (keydown.enter)="openPreview(i)" (keydown.space)="openPreview(i)" tabindex="0"
-        role="button">
+      <div
+        class="portfolio-item"
+        *ngFor="let item of gridItems; let i = index"
+        [ngClass]="getItemHeightClass(i)"
+        (click)="openPreview(i)"
+        tabindex="0"
+        role="button"
+        (keydown.enter)="openPreview(i)"
+      >
+        <img [src]="item.image" [alt]="item.title" draggable="false" />
 
-        <img [src]="item.image" alt="{{ item.title }}">
+        <a
+          class="item-link-icon"
+          [href]="item.link"
+          target="_blank"
+          (click)="$event.stopPropagation()"
+          title="Ir al proyecto"
+        >
+          <i class="fa fa-link"></i>
+        </a>
+
+        <div class="item-dots">&#8943;</div>
+
         <div class="overlay">
-          <h5 class="text-white fw-bold mb-1">{{ item.title }}</h5>
-          <small class="text-light">{{ item.category }}</small>
+          <h5 class="overlay-title">{{ item.title }}</h5>
+          <small class="overlay-category">{{ item.category }}</small>
         </div>
       </div>
     </div>
   </section>
-  <div class="lightbox" *ngIf="isPreviewVisible">
-    <div class="lightbox-content">
-      <button class="close-btn" (click)="closePreview()">×</button>
 
-      <button class="nav-btn left" (click)="previousImage()">←</button>
+  <div class="portfolio-bottom-spacer"></div>
 
-      <div class="image-container">
-        <img [src]="currentImage.image" [alt]="currentImage.title">
-        <div class="caption">
-          <h5>{{ currentImage.title }}</h5>
-          <small>{{ currentImage.category }}</small>
-          <p>{{ currentImage.description }}</p>
-          <a [href]="currentImage.link" target="_blank" class="text-light underline">Ir al proyecto →</a>
-        </div>
+  <div
+    class="lightbox"
+    *ngIf="isPreviewVisible"
+    (click)="onLightboxBackdropClick($event)"
+  >
+    <div class="lightbox-counter">{{ currentIndex + 1 }} / {{ gridItems.length }}</div>
+
+    <button class="lightbox-close" (click)="closePreview()">&#10005;</button>
+
+    <button class="lightbox-nav left" (click)="previousImage(); $event.stopPropagation()">&#8592;</button>
+
+    <div
+      class="lightbox-content"
+      (click)="$event.stopPropagation()"
+      (mousedown)="startLbDrag($event)"
+      (mouseup)="endLbDrag($event)"
+      (mousemove)="onLbDrag($event)"
+      (mouseleave)="cancelLbDrag()"
+    >
+      <div class="lb-image-wrap">
+        <img [src]="currentImage.image" [alt]="currentImage.title" draggable="false" />
       </div>
 
-      <button class="nav-btn right" (click)="nextImage()">→</button>
+      <div class="lb-caption">
+        <div class="lb-caption-top">
+          <span class="lb-title">{{ currentImage.title }}</span>
+          <span class="lb-category">{{ currentImage.category }}</span>
+        </div>
+        <p class="lb-description">{{ currentImage.description }}</p>
+        <a [href]="currentImage.link" target="_blank" class="lb-link">Ir al proyecto</a>
+      </div>
     </div>
+
+    <button class="lightbox-nav right" (click)="nextImage(); $event.stopPropagation()">&#8594;</button>
   </div>
+
 </section>
