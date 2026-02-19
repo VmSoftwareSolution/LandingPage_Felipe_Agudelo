@@ -10,7 +10,7 @@ import { Statistics } from '../statistics/statistics';
 
 @Component({
   selector: 'app-landinpage',
-  imports: [Home, Portfolio, Scroll, About , Contact, Footer, Testimonial, Statistics],
+  imports: [Home, Portfolio, Scroll, About , Contact, Testimonial, Statistics],
   templateUrl: './landinpage.html',
   styleUrl: './landinpage.css'
 })

@@ -1,35 +1,50 @@
 <section class="reference-section" id="testimonios">
-  <h2 class="section-title">What People Say.</h2>
 
-  <div class="navigation-controls left">
-    <button class="nav-button" (click)="previousSlide()">←</button>
-  </div>
+  <button class="nav-btn nav-left" (click)="previousSlide()">&#8592;</button>
+  <button class="nav-btn nav-right" (click)="nextSlide()">&#8594;</button>
 
-  <div class="navigation-controls right">
-    <button class="nav-button" (click)="nextSlide()">→</button>
-  </div>
+  <h2 class="section-title">Lo Que Dicen de Mí.</h2>
 
-  <div class="carousel-wrapper" #carousel
-       (mousedown)="startDrag($event)"
-       (mouseup)="endDrag()"
-       (mouseleave)="endDrag()"
-       (mousemove)="onDrag($event)">
-    <div class="carousel" [style.cursor]="isDragging ? 'grabbing' : 'grab'">
-      <div class="reference-card" *ngFor="let reference of references">
-        <div class="reference-layout">
-          <div class="author-img">
-            <img [src]="reference.image" alt="{{reference.name}}" />
-            <div class="vertical-line"></div>
+  <div class="h-line-full"></div>
+
+  <div class="carousel-outer">
+    <div
+      class="carousel-track"
+      #track
+      [class.is-dragging]="isDragging"
+      (mousedown)="startDrag($event)"
+      (touchstart)="startTouchDrag($event)"
+      (touchmove)="onTouchDrag($event)"
+      (touchend)="endTouchDrag($event)"
+    >
+      <div class="carousel-page" *ngFor="let pair of pairs">
+
+        <div class="testimonial-item">
+          <div class="author-col">
+            <div class="v-line"></div>
+            <img [src]="pair.first.image" [alt]="pair.first.name" class="author-img" />
           </div>
           <div class="content">
-            <p class="quote">{{ reference.comment }}</p>
-            <div class="author-details">
-              <div class="author-name">{{ reference.name | uppercase }}</div>
-              <div class="author-role">{{ reference.role }}</div>
-            </div>
+            <p class="quote">{{ pair.first.comment }}</p>
+            <div class="author-name">{{ pair.first.name | uppercase }}</div>
+            <div class="author-role">{{ pair.first.role }}</div>
           </div>
         </div>
+
+        <div class="testimonial-item">
+          <div class="author-col">
+            <div class="v-line"></div>
+            <img [src]="pair.second.image" [alt]="pair.second.name" class="author-img" />
+          </div>
+          <div class="content">
+            <p class="quote">{{ pair.second.comment }}</p>
+            <div class="author-name">{{ pair.second.name | uppercase }}</div>
+            <div class="author-role">{{ pair.second.role }}</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
+
 </section>
