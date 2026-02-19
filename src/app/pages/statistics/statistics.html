@@ -1,7 +1,10 @@
-<div class="stats-container">
-  <div class="stat-card" *ngFor="let c of counters">
-    <i class="{{ c.icon }} stat-icon"></i>
-    <div class="stat-value">{{ c.current | number }}</div>
-    <div class="stat-label">{{ c.label }}</div>
+<div class="stats-section" #statsSection>
+  <div class="stats-container">
+    <div class="stat-card" *ngFor="let c of counters; let last = last">
+      <i class="{{ c.icon }} stat-icon"></i>
+      <div class="stat-value">{{ c.current | number }}</div>
+      <div class="stat-label">{{ c.label }}</div>
+      <div class="separator" *ngIf="!last"></div>
+    </div>
   </div>
 </div>
