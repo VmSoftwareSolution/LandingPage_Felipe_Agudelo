@@ -1,4 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import {
+  Component, OnInit, OnDestroy, HostListener, PLATFORM_ID, inject
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-scroll',
@@ -6,9 +9,11 @@ import { Component, OnInit, HostListener } from '@angular/core';
   templateUrl: './scroll.html',
   styleUrl: './scroll.css'
 })
-export class Scroll implements OnInit {
+export class Scroll implements OnInit, OnDestroy {
 
-  private sections = [
+  private platformId = inject(PLATFORM_ID);
+
+  private readonly sectionIds = [
     'inicio',
     'sobre',
     'tecnologias',
@@ -18,71 +23,90 @@ export class Scroll implements OnInit {
   ];
 
   ngOnInit() {
-    this.updateScrollProgress();
+    if (isPlatformBrowser(this.platformId)) {
+      requestAnimationFrame(() => this.updateScrollProgress());
+    }
   }
+
+  ngOnDestroy() {}
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.updateScrollProgress();
   }
 
+  private getNavbarOffset(): number {
+    const el = document.querySelector('.custom-navbar') as HTMLElement | null;
+    if (!el) return 0;
+    const marginTop = parseFloat(getComputedStyle(el).marginTop) || 0;
+    return marginTop + el.offsetHeight;
+  }
+
+  private getNavbarOffsetForTarget(targetY: number): number {
+    const el = document.querySelector('.custom-navbar') as HTMLElement | null;
+    if (!el) return 0;
+    if (targetY > 150) return 40;
+    const marginTop = parseFloat(getComputedStyle(el).marginTop) || 0;
+    return marginTop + el.offsetHeight;
+  }
+
+  private getAbsoluteTop(el: HTMLElement): number {
+    let top = 0;
+    let cur: HTMLElement | null = el;
+    while (cur) {
+      top += cur.offsetTop;
+      cur = cur.offsetParent as HTMLElement | null;
+    }
+    return top;
+  }
+
   public scrollToNextSection(): void {
-    const currentScroll = window.scrollY;
-    const navbarHeight = document.querySelector('.custom-navbar')?.clientHeight || 0;
+    const scrollTop = window.scrollY;
+    const TOLERANCE = 4;
 
-    // Encontrar la sección actual
-    let currentIndex = -1;
+    let currentIndex = 0;
 
-    for (let i = 0; i < this.sections.length; i++) {
-      const element = document.getElementById(this.sections[i]);
-      if (!element) continue;
-
-      const rect = element.getBoundingClientRect();
-      const sectionTop = rect.top + window.scrollY;
-
-      // Si estamos en esta sección o más arriba
-      if (currentScroll >= sectionTop - navbarHeight - 100) {
+    for (let i = 0; i < this.sectionIds.length; i++) {
+      const el = document.getElementById(this.sectionIds[i]);
+      if (!el) continue;
+      const sectionTop = this.getAbsoluteTop(el);
+      if (scrollTop >= sectionTop - this.getNavbarOffset() - TOLERANCE) {
         currentIndex = i;
       }
     }
 
-    // Ir a la siguiente sección
     const nextIndex = currentIndex + 1;
+    if (nextIndex >= this.sectionIds.length) return;
 
-    if (nextIndex < this.sections.length) {
-      const nextSection = document.getElementById(this.sections[nextIndex]);
+    const nextEl = document.getElementById(this.sectionIds[nextIndex]);
+    if (!nextEl) return;
 
-      if (nextSection) {
-        const rect = nextSection.getBoundingClientRect();
-        const targetY = rect.top + window.scrollY - navbarHeight - 10;
+    const rawTop  = this.getAbsoluteTop(nextEl);
+    const targetY = Math.max(0, Math.round(rawTop - this.getNavbarOffsetForTarget(rawTop)));
 
-        window.scrollTo({
-          top: Math.max(0, Math.round(targetY)),
-          behavior: 'smooth'
-        });
-      }
-    }
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
   }
 
   private updateScrollProgress(): void {
-    const sections = Array.from(document.querySelectorAll('section')) as HTMLElement[];
+    const docEl       = document.documentElement;
+    const scrollTop   = window.pageYOffset || docEl.scrollTop;
 
-    if (sections.length <= 1) return;
+    // El máximo se calcula hasta el top de #contacto (última sección),
+    // no hasta el final del documento — así el círculo llega al 100%
+    // exactamente al llegar a contacto, sin contar el footer.
+    const lastId  = this.sectionIds[this.sectionIds.length - 1];
+    const lastEl  = document.getElementById(lastId) as HTMLElement | null;
+    const maxScroll = lastEl
+      ? this.getAbsoluteTop(lastEl) - this.getNavbarOffset()
+      : docEl.scrollHeight - docEl.clientHeight;
 
-    const sectionsToCount = sections.slice(0, -1);
-    const lastSection = sectionsToCount[sectionsToCount.length - 1];
+    if (maxScroll <= 0) return;
 
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const maxScrollHeight = lastSection.offsetTop + lastSection.offsetHeight;
-    const scrollProgress = Math.min(scrollTop / maxScrollHeight, 1);
-
+    const progress      = Math.min(scrollTop / maxScroll, 1);
     const circumference = 2 * Math.PI * 33;
-    const offset = circumference - (scrollProgress * circumference);
+    const offset        = circumference * (1 - progress);
 
-    const circle = document.querySelector('.progress-ring-circle') as SVGCircleElement;
-    if (circle) {
-      circle.style.strokeDashoffset = offset.toString();
-    }
+    const circle = document.querySelector('.progress-ring-circle') as SVGCircleElement | null;
+    if (circle) circle.style.strokeDashoffset = String(offset);
   }
-
 }

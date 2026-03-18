@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================================================
+   Global styles
+   FIX #14 espacio en blanco: AOS no debe expandir el documento
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  /* AOS usa [data-aos] con translateY — overflow-x hidden evita scroll horizontal */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  /* Sin overflow-y: hidden para no bloquear el scroll vertical */
+}
+
+/* CLAVE: los elementos con data-aos que están debajo del fold
+   no deben añadir altura al documento durante su estado inicial (antes de animar).
+   Esto se logra conteniendo su overflow en el padre inmediato. */
+[data-aos] {
+  /* AOS ya maneja pointer-events, pero aseguramos que no expandan el layout */
+  backface-visibility: hidden;
+}

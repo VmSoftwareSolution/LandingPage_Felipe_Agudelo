@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, OnDestroy, OnInit, inject, PLATFORM_ID, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, PLATFORM_ID, ElementRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -11,21 +11,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class Navbar implements OnInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
-  private host = inject(ElementRef<HTMLElement>);
-  private renderer = inject(Renderer2);
+  private host       = inject(ElementRef<HTMLElement>);
 
   private scrollListener: (() => void) | null = null;
-  menuOpen = false;
+  menuOpen      = false;
   activeSection = 'inicio';
-  scrolled = false;
+  scrolled      = false;
 
   navLinks = [
-    { section: 'inicio', label: 'Inicio' },
-    { section: 'sobre', label: 'Sobre mí' },
+    { section: 'inicio',      label: 'Inicio' },
+    { section: 'sobre',       label: 'Sobre mí' },
     { section: 'tecnologias', label: 'Tecnologías' },
-    { section: 'proyecto', label: 'Proyecto' },
+    { section: 'proyecto',    label: 'Proyecto' },
     { section: 'testimonios', label: 'Testimonios' },
-    { section: 'contacto', label: 'Contacto' }
+    { section: 'contacto',    label: 'Contacto' }
   ];
 
   ngOnInit() {
@@ -34,7 +33,8 @@ export class Navbar implements OnInit, OnDestroy {
       document.addEventListener('keydown', this.handleEscape);
       this.scrollListener = this.onScroll.bind(this);
       window.addEventListener('scroll', this.scrollListener, { passive: true });
-      window.addEventListener('resize', this.onScroll.bind(this));
+      window.addEventListener('resize', this.scrollListener, { passive: true });
+      requestAnimationFrame(() => this.updateActiveSection());
     }
   }
 
@@ -42,9 +42,56 @@ export class Navbar implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       document.removeEventListener('click', this.handleClickOutside);
       document.removeEventListener('keydown', this.handleEscape);
-      if (this.scrollListener) window.removeEventListener('scroll', this.scrollListener);
+      if (this.scrollListener) {
+        window.removeEventListener('scroll', this.scrollListener);
+        window.removeEventListener('resize', this.scrollListener);
+      }
       document.body.style.overflow = 'auto';
     }
+  }
+
+  private getNavbarOffset(): number {
+    const el = this.host.nativeElement.querySelector('.custom-navbar') as HTMLElement | null;
+    if (!el) return 0;
+    const marginTop = parseFloat(getComputedStyle(el).marginTop) || 0;
+    return marginTop + el.offsetHeight;
+  }
+
+  private getNavbarOffsetForTarget(targetY: number): number {
+    const el = this.host.nativeElement.querySelector('.custom-navbar') as HTMLElement | null;
+    if (!el) return 0;
+    const SCROLLED_THRESHOLD = 150;
+    if (targetY > SCROLLED_THRESHOLD) {
+      return 40;
+    }
+    const marginTop = parseFloat(getComputedStyle(el).marginTop) || 0;
+    return marginTop + el.offsetHeight;
+  }
+
+  private getAbsoluteTop(el: HTMLElement): number {
+    let top = 0;
+    let cur: HTMLElement | null = el;
+    while (cur) {
+      top += cur.offsetTop;
+      cur = cur.offsetParent as HTMLElement | null;
+    }
+    return top;
+  }
+
+  private updateActiveSection(): void {
+    const scrollTop = window.scrollY;
+    const offset    = this.getNavbarOffset();
+    const TOLERANCE = 4;
+    let   found     = this.navLinks[0].section;
+
+    for (const link of this.navLinks) {
+      const el = document.getElementById(link.section);
+      if (!el) continue;
+      if (scrollTop >= this.getAbsoluteTop(el) - offset - TOLERANCE) {
+        found = link.section;
+      }
+    }
+    this.activeSection = found;
   }
 
   private onScroll(): void {
@@ -52,26 +99,17 @@ export class Navbar implements OnInit, OnDestroy {
     const isDesktop = window.innerWidth > 991;
     if (!isDesktop) {
       this.scrolled = false;
-      return;
+    } else {
+      this.scrolled = window.scrollY > 150;
+      if (this.scrolled && this.menuOpen) this.closeMenu();
     }
-
-    const threshold = 150;
-    const y = window.scrollY || window.pageYOffset;
-    this.scrolled = y > threshold;
-
-    if (this.scrolled && this.menuOpen) {
-      this.closeMenu();
-    }
+    this.updateActiveSection();
   }
 
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
-    document.body.style.overflow = this.menuOpen && window.innerWidth <= 991 ? 'hidden' : 'auto';
-  }
-
-  setActiveSection(section: string): void {
-    this.activeSection = section;
-    this.closeMenu();
+    document.body.style.overflow =
+      this.menuOpen && window.innerWidth <= 991 ? 'hidden' : 'auto';
   }
 
   closeMenu(): void {
@@ -81,37 +119,24 @@ export class Navbar implements OnInit, OnDestroy {
 
   private handleClickOutside = (event: Event): void => {
     const navbar = this.host.nativeElement.querySelector('.custom-navbar');
-    const target = event.target as HTMLElement;
-
-    if (this.menuOpen && navbar && !navbar.contains(target)) {
+    if (this.menuOpen && navbar && !navbar.contains(event.target as Node)) {
       this.closeMenu();
     }
   };
 
   private handleEscape = (event: KeyboardEvent): void => {
-    if (event.key === 'Escape' && this.menuOpen) {
-      this.closeMenu();
-    }
+    if (event.key === 'Escape' && this.menuOpen) this.closeMenu();
   };
 
   scrollTo(event: Event, sectionId: string): void {
-    if (event && typeof event.preventDefault === 'function') {
-      event.preventDefault();
-    }
-    this.setActiveSection(sectionId);
+    event?.preventDefault?.();
     if (typeof window === 'undefined') return;
-    const element = document.getElementById(sectionId);
-    if (!element) return;
-
-    const navbarEl = this.host.nativeElement.querySelector('.custom-navbar') as HTMLElement | null;
-    const offset = navbarEl ? navbarEl.offsetHeight : 0;
-
-    const rect = element.getBoundingClientRect();
-    const targetY = rect.top + window.scrollY - offset - 10;
-    const currentY = window.scrollY || window.pageYOffset;
-
-    const direction = targetY > currentY ? 'down' : 'up';
-
-    window.scrollTo({ top: Math.max(0, Math.round(targetY)), behavior: 'smooth' });
+    this.activeSection = sectionId;
+    this.closeMenu();
+    const el = document.getElementById(sectionId);
+    if (!el) return;
+    const rawTop  = this.getAbsoluteTop(el);
+    const targetY = Math.max(0, Math.round(rawTop - this.getNavbarOffsetForTarget(rawTop)));
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
   }
 }

@@ -51,14 +51,12 @@
   .contact-wrapper {
     display: flex;
     flex-wrap: nowrap;
-    gap: 20px;
-    justify-content: space-between;
+    gap: 80px;
+    justify-content: center;
     align-items: stretch;
-    margin-left: 100px;
   }
 
   .contact-form {
-    margin-left: 50px;
     flex: 1 1 50%;
     display: flex;
     flex-direction: column;
@@ -99,7 +97,10 @@
       }
     }
 
+    .submit-spacer { margin-top: 32px; }
+
     button {
+      margin-top: 32px;
       background-color: #800000;
       border: none;
       padding: 12px;

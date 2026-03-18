@@ -22,6 +22,9 @@ export class Testimonial implements AfterViewInit, OnDestroy {
   private hasMoved    = false;
   private isSnapping  = false;
   private resizeObs!: ResizeObserver;
+  private autoPlayTimer: any = null;
+  private userInteracted = false;
+  private userInteractTimeout: any = null;
 
   private boundMouseMove!: (e: MouseEvent) => void;
   private boundMouseUp!:   (e: MouseEvent) => void;
@@ -53,39 +56,78 @@ export class Testimonial implements AfterViewInit, OnDestroy {
     }
   ];
 
-  get pairs(): { first: any, second: any }[] {
-    const result = [];
+  // En móvil (<768px) mostramos 1 por página, en desktop 2 por página
+  private get isMobile(): boolean {
+    return typeof window !== 'undefined' && window.innerWidth <= 768;
+  }
+
+  // Páginas: en móvil cada referencia es su propia página
+  get pages(): any[][] {
+    if (this.isMobile) {
+      return this.references.map(r => [r]);
+    }
+    const result: any[][] = [];
     for (let i = 0; i < this.references.length; i += 2) {
-      result.push({
-        first:  this.references[i],
-        second: this.references[i + 1] ?? this.references[0]
-      });
+      result.push([this.references[i], this.references[i + 1] ?? this.references[0]]);
     }
     return result;
   }
 
-  get activePairIndex(): number {
-    return Math.floor(this.currentIndex / 2);
+  // Mantener pairs para compatibilidad con el HTML existente
+  get pairs(): { first: any, second: any }[] {
+    return this.pages.map(p => ({ first: p[0], second: p[1] ?? null }));
   }
 
+  get activePairIndex(): number {
+    return this.currentIndex;
+  }
 
   ngAfterViewInit() {
     this.boundMouseMove = (e) => this.onDrag(e);
     this.boundMouseUp   = (e) => this.endDrag(e);
 
-    this.scrollToPair(this.activePairIndex, false);
+    this.scrollToPair(this.currentIndex, false);
 
     this.resizeObs = new ResizeObserver(() => {
-      this.scrollToPair(this.activePairIndex, false);
+      this.scrollToPair(this.currentIndex, false);
     });
     this.resizeObs.observe(this.trackRef.nativeElement);
+
+    // Auto-play: avanza cada 4 segundos si el usuario no interactúa
+    this.startAutoPlay();
   }
 
   ngOnDestroy() {
     this.removeDocumentListeners();
     this.resizeObs?.disconnect();
+    this.stopAutoPlay();
+    clearTimeout(this.userInteractTimeout);
   }
 
+  private startAutoPlay(): void {
+    this.stopAutoPlay();
+    this.autoPlayTimer = setInterval(() => {
+      if (!this.userInteracted && !this.isSnapping) {
+        this.nextSlide();
+      }
+    }, 4000);
+  }
+
+  private stopAutoPlay(): void {
+    if (this.autoPlayTimer) {
+      clearInterval(this.autoPlayTimer);
+      this.autoPlayTimer = null;
+    }
+  }
+
+  // Pausa el auto-play 8 segundos tras interacción del usuario, luego lo reanuda
+  private onUserInteract(): void {
+    this.userInteracted = true;
+    clearTimeout(this.userInteractTimeout);
+    this.userInteractTimeout = setTimeout(() => {
+      this.userInteracted = false;
+    }, 8000);
+  }
 
   private getTrack(): HTMLElement {
     return this.trackRef.nativeElement;
@@ -95,10 +137,10 @@ export class Testimonial implements AfterViewInit, OnDestroy {
     return this.getTrack().parentElement?.offsetWidth ?? 0;
   }
 
-  private scrollToPair(pairIndex: number, smooth: boolean) {
+  private scrollToPair(pageIndex: number, smooth: boolean) {
     const track  = this.getTrack();
     const pageW  = this.getPageWidth();
-    const target = pairIndex * pageW;
+    const target = pageIndex * pageW;
 
     if (smooth) {
       track.scrollTo({ left: target, behavior: 'smooth' });
@@ -107,14 +149,13 @@ export class Testimonial implements AfterViewInit, OnDestroy {
     }
   }
 
-
   nextSlide() {
     if (this.isSnapping) return;
     this.isSnapping = true;
 
-    const nextPair = (this.activePairIndex + 1) % this.pairs.length;
-    this.currentIndex = nextPair * 2;
-    this.scrollToPair(nextPair, true);
+    const next = (this.currentIndex + 1) % this.pages.length;
+    this.currentIndex = next;
+    this.scrollToPair(next, true);
 
     setTimeout(() => { this.isSnapping = false; }, 600);
   }
@@ -123,16 +164,16 @@ export class Testimonial implements AfterViewInit, OnDestroy {
     if (this.isSnapping) return;
     this.isSnapping = true;
 
-    const prevPair = (this.activePairIndex - 1 + this.pairs.length) % this.pairs.length;
-    this.currentIndex = prevPair * 2;
-    this.scrollToPair(prevPair, true);
+    const prev = (this.currentIndex - 1 + this.pages.length) % this.pages.length;
+    this.currentIndex = prev;
+    this.scrollToPair(prev, true);
 
     setTimeout(() => { this.isSnapping = false; }, 600);
   }
 
-
   startDrag(event: MouseEvent) {
     if (this.isSnapping) return;
+    this.onUserInteract();
     this.isDragging  = true;
     this.hasMoved    = false;
     this.dragStartX  = event.clientX;
@@ -148,7 +189,6 @@ export class Testimonial implements AfterViewInit, OnDestroy {
     const delta = this.dragStartX - event.clientX;
     if (Math.abs(delta) > 5) this.hasMoved = true;
     if (!this.hasMoved) return;
-
     this.getTrack().scrollLeft = this.scrollStart + delta;
   }
 
@@ -167,7 +207,7 @@ export class Testimonial implements AfterViewInit, OnDestroy {
       this.previousSlide();
     } else {
       this.isSnapping = true;
-      this.scrollToPair(this.activePairIndex, true);
+      this.scrollToPair(this.currentIndex, true);
       setTimeout(() => { this.isSnapping = false; }, 600);
     }
   }
@@ -177,9 +217,9 @@ export class Testimonial implements AfterViewInit, OnDestroy {
     document.removeEventListener('mouseup',   this.boundMouseUp);
   }
 
-
   startTouchDrag(event: TouchEvent) {
     if (this.isSnapping) return;
+    this.onUserInteract();
     this.isDragging  = true;
     this.hasMoved    = false;
     this.dragStartX  = event.touches[0].clientX;
@@ -208,8 +248,14 @@ export class Testimonial implements AfterViewInit, OnDestroy {
       this.previousSlide();
     } else {
       this.isSnapping = true;
-      this.scrollToPair(this.activePairIndex, true);
+      this.scrollToPair(this.currentIndex, true);
       setTimeout(() => { this.isSnapping = false; }, 600);
     }
+  }
+
+  // Pausa el auto-play cuando el usuario usa las flechas manualmente
+  onNavClick(direction: 'next' | 'prev'): void {
+    this.onUserInteract();
+    direction === 'next' ? this.nextSlide() : this.previousSlide();
   }
 }

@@ -1,10 +1,5 @@
 import {
-  Component,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-  inject,
-  PLATFORM_ID
+  Component, ViewChild, ElementRef, AfterViewInit, inject, PLATFORM_ID
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -16,7 +11,6 @@ import { isPlatformBrowser } from '@angular/common';
 export default class Home implements AfterViewInit {
   @ViewChild('nameElement') nameElement!: ElementRef;
   @ViewChild('heroContainer') heroContainer!: ElementRef;
-
   platformId = inject(PLATFORM_ID);
 
   ngAfterViewInit(): void {
@@ -26,13 +20,31 @@ export default class Home implements AfterViewInit {
       }
     }
   }
-  scrollToSection(sectionId: string): void {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
+
+  private getNavbarOffsetForTarget(targetY: number): number {
+    const el = document.querySelector('.custom-navbar') as HTMLElement | null;
+    if (!el) return 0;
+    const SCROLLED_THRESHOLD = 150;
+    if (targetY > SCROLLED_THRESHOLD) {
+      return 40;
     }
+    const marginTop = parseFloat(getComputedStyle(el).marginTop) || 0;
+    return marginTop + el.offsetHeight;
+  }
+
+  private getAbsoluteTop(el: HTMLElement): number {
+    let top = 0;
+    let cur: HTMLElement | null = el;
+    while (cur) { top += cur.offsetTop; cur = cur.offsetParent as HTMLElement | null; }
+    return top;
+  }
+
+  scrollToSection(sectionId: string): void {
+    if (typeof window === 'undefined') return;
+    const el = document.getElementById(sectionId);
+    if (!el) return;
+    const rawTop  = this.getAbsoluteTop(el);
+    const targetY = Math.max(0, Math.round(rawTop - this.getNavbarOffsetForTarget(rawTop)));
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
   }
 }

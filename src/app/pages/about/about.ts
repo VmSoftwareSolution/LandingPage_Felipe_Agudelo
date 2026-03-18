@@ -1,12 +1,4 @@
-import { 
-  Component,
-  OnInit,
-  PLATFORM_ID,
-  inject 
-} from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import AOS from 'aos';
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-about',
@@ -14,13 +6,4 @@ import AOS from 'aos';
   templateUrl: './about.html',
   styleUrl: './about.css'
 })
-
-export class About implements OnInit{
-   private platformId = inject(PLATFORM_ID);
-   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      AOS.init();
-    }
-  }
-}
-
+export class About {}

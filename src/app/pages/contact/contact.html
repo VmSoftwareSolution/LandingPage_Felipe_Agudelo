@@ -1,61 +1,74 @@
 <section class="contact-section" id="contacto">
   <div class="container">
     <h2 class="title">Contacto.</h2>
-    <p class="subtitle">
-      Say Hello.
-    </p>
+    <p class="subtitle">Say Hello.</p>
+
     <div class="contact-wrapper">
+      <!-- FORMULARIO -->
       <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" novalidate class="contact-form"
             data-aos="fade-right" data-aos-duration="2000">
+
         <div class="form-group">
-          <input formControlName="name" type="text" placeholder="Name" />
+          <label for="name">Nombre</label>
+          <input id="name" formControlName="name" type="text" placeholder="Tu nombre completo" />
           <div class="error" *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">
-            Name is required
+            El nombre es requerido
           </div>
         </div>
+
         <div class="form-group">
-          <input formControlName="email" type="email" placeholder="Email" />
+          <label for="email">Correo electrónico</label>
+          <input id="email" formControlName="email" type="email" placeholder="ejemplo@correo.com" />
           <div class="error" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
-            <span *ngIf="contactForm.get('email')?.errors?.['required']">Email is required</span>
-            <span *ngIf="contactForm.get('email')?.errors?.['email']">Invalid email format</span>
+            <span *ngIf="contactForm.get('email')?.errors?.['required']">El correo es requerido</span>
+            <span *ngIf="contactForm.get('email')?.errors?.['email']">Formato de correo inválido</span>
           </div>
         </div>
+
         <div class="form-group">
-          <input formControlName="subject" type="text" placeholder="Subject" />
+          <label for="subject">Asunto</label>
+          <input id="subject" formControlName="subject" type="text" placeholder="¿En qué puedo ayudarte?" />
           <div class="error" *ngIf="contactForm.get('subject')?.touched && contactForm.get('subject')?.invalid">
-            Subject is required
+            El asunto es requerido
           </div>
         </div>
+
         <div class="form-group">
-          <textarea formControlName="message" rows="5" placeholder="Message"></textarea>
+          <label for="message">Mensaje</label>
+          <textarea id="message" formControlName="message" rows="5"
+                    placeholder="Escribe tu mensaje aquí..."></textarea>
           <div class="error" *ngIf="contactForm.get('message')?.touched && contactForm.get('message')?.invalid">
-            Message is required
+            El mensaje es requerido
           </div>
         </div>
-       <button type="submit" [disabled]="sending"
-        data-aos="fade-down"
-        data-aos-duration="2000"
-        data-aos-delay="200"
-        data-aos-once="true">
-          SUBMIT
-      </button>
+
+        <!-- FIX #13: espacio antes del botón SUBMIT -->
+        <div class="submit-wrapper">
+          <button type="submit" [disabled]="sending"
+            data-aos="fade-down" data-aos-duration="2000"
+            data-aos-delay="200" data-aos-once="true">
+            {{ sending ? 'ENVIANDO...' : 'SUBMIT' }}
+          </button>
+        </div>
       </form>
 
+      <div class="divider" aria-hidden="true"></div>
+
+      <!-- INFO DE CONTACTO -->
       <div class="contact-info" data-aos="fade-left" data-aos-duration="2000">
-        <div>
-          <h4>PHONE</h4>
-          <p>Phone: (+68) 555 1212</p>
-          <p>Mobile: (+68) 555 0100</p>
-          <p>Fax: (+68) 555 0101</p>
+        <div class="info-block">
+          <h4>TELÉFONO</h4>
+          <p>+57 313 491 2612</p>
         </div>
-        <div>
+        <div class="info-block">
           <h4>EMAIL</h4>
-          <p>123rnadom&#64;gmail.com</p>
-          <p>456rnadom&#64;gmail.com</p>
+          <p>felipeagudeloolaya&#64;gmail.com</p>
         </div>
-        <div>
-          <h4>ADDRESS</h4>
-          <p>1600 Amphitheatre Parkway<br />Mountain View, CA<br />94048 US</p>
+        <div class="info-block">
+          <h4>REDES</h4>
+          <p>LinkedIn: dresk76</p>
+          <p>GitHub: Dresk76</p>
+          <p>Instagram: dresk_76</p>
         </div>
       </div>
     </div>

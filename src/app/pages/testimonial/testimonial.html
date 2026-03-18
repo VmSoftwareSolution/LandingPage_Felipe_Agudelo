@@ -1,7 +1,7 @@
 <section class="reference-section" id="testimonios">
 
-  <button class="nav-btn nav-left" (click)="previousSlide()">&#8592;</button>
-  <button class="nav-btn nav-right" (click)="nextSlide()">&#8594;</button>
+  <button class="nav-btn nav-left" (click)="onNavClick('prev')">&#8592;</button>
+  <button class="nav-btn nav-right" (click)="onNavClick('next')">&#8594;</button>
 
   <h2 class="section-title">Lo Que Dicen de Mí.</h2>
 
@@ -31,7 +31,7 @@
           </div>
         </div>
 
-        <div class="testimonial-item">
+        <div class="testimonial-item" *ngIf="pair.second">
           <div class="author-col">
             <div class="v-line"></div>
             <img [src]="pair.second.image" [alt]="pair.second.name" class="author-img" />

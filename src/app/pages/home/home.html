@@ -7,16 +7,18 @@
         <span class="name" #nameElement>Soy Felipe Agudelo</span>
         <div class="profession" data-aos="fade-left" data-aos-duration="1200">
           Ingeniero Informático | Ciberseguridad y Python (Active Learner) |<br>
-          Desarrollador Unity | Profesor de GameDev & IA |<br>
-          Scrum Avanzado<br>
+          Desarrollador Unity | Profesor de GameDev &amp; IA |<br>
+          Scrum Avanzado
         </div>
       </h1>
+
       <div class="buttons-container" data-aos="fade-up" data-aos-duration="1400">
+        <!-- FIX #2: IDs corregidos — 'sobre' y 'contacto' son los ids reales -->
         <a
           role="button"
           tabindex="0"
-          (click)="scrollToSection('about')"
-          (keydown.enter)="scrollToSection('about')"
+          (click)="scrollToSection('sobre')"
+          (keydown.enter)="scrollToSection('sobre')"
           class="btn-custom btn-primary-custom"
         >
           Más Sobre Mí
@@ -24,8 +26,8 @@
         <a
           role="button"
           tabindex="0"
-          (click)="scrollToSection('contact')"
-          (keydown.enter)="scrollToSection('contact')"
+          (click)="scrollToSection('contacto')"
+          (keydown.enter)="scrollToSection('contacto')"
           class="btn-custom"
         >
           Contáctame
@@ -36,32 +38,37 @@
 
   <div class="hero-right" data-aos="fade-left" data-aos-duration="1200">
     <img src="/intro-bg.jpg" alt="Felipe Agudelo" class="profile-image" />
+
     <div class="social-links" data-aos="fade-up" data-aos-duration="1200">
-      <a href="https://www.linkedin.com/in/dresk76/" class="social-link" data-tooltip="LinkedIn" target="_blank">
+      <a href="https://www.linkedin.com/in/dresk76/" class="social-link" data-tooltip="LinkedIn" target="_blank" rel="noopener">
         <i class="fab fa-linkedin-in"></i>
       </a>
-      <a href="https://github.com/Dresk76" class="social-link" data-tooltip="GitHub" target="_blank">
+      <a href="https://github.com/Dresk76" class="social-link" data-tooltip="GitHub" target="_blank" rel="noopener">
         <i class="fab fa-github"></i>
       </a>
-      <a href="https://x.com/felipedk76" class="social-link" data-tooltip="Twitter" target="_blank">
+      <a href="https://x.com/felipedk76" class="social-link" data-tooltip="Twitter" target="_blank" rel="noopener">
         <i class="fab fa-x-twitter"></i>
       </a>
-      <a href="https://www.instagram.com/dresk_76/" class="social-link" data-tooltip="Instagram" target="_blank">
+      <a href="https://www.instagram.com/dresk_76/" class="social-link" data-tooltip="Instagram" target="_blank" rel="noopener">
         <i class="fab fa-instagram"></i>
       </a>
       <a href="mailto:felipeagudeloolaya@gmail.com" class="social-link" data-tooltip="Email">
         <i class="fas fa-envelope"></i>
       </a>
-      <a href="mailto:Dresk76" class="social-link" data-tooltip="Discord">
+      <!-- FIX #3: Discord — abre perfil del usuario. Si tienes ID numérico reemplaza 'Dresk76' por tu Discord ID -->
+      <a href="https://discord.com/users/Dresk76" class="social-link" data-tooltip="Discord" target="_blank" rel="noopener">
         <i class="fab fa-discord"></i>
       </a>
       <div class="vertical-divider"></div>
     </div>
+
+    <!-- FIX #1 + #16: botón alineado correctamente y apunta al PDF del CV -->
     <div class="cv-btn-row" data-aos="fade-up" data-aos-duration="1200">
       <span class="cv-btn-line"></span>
       <a
-        role="button"
-        tabindex="0"
+        href="/cv-felipe-agudelo.pdf"
+        target="_blank"
+        rel="noopener"
         class="get-in-touch"
       >
         DESCARGAR CV
